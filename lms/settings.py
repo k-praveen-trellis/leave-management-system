@@ -70,14 +70,22 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'lms.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'sql_server.pyodbc',
+        'NAME': 'djangotestdb',
+        'HOST': '192.168.0.101',
+        'USER': 'sa',
+        'PASSWORD' : '1mj16cs105',
+        'PORT' : '1433',
+        'OPTIONS': {
+            'driver': 'ODBC Driver 17 for SQL Server',
+            'host_is_server':True,
+            'unicode_results':True,
+        }
     }
 }
 
@@ -100,6 +108,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# AUTH_USER_MODEL = 'accounts.User'
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.1/topics/i18n/
@@ -120,7 +129,9 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR,'static')
-
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'lms/static'),
+]
 
 MEDIA_ROOT = os.path.join(BASE_DIR,'media')
 MEDIA_URL = '/media/'
